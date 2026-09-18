@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Jessy Duca · Architecture & graphisme</title>
+<meta name="description" content="Portfolio de Jessy Duca, étudiant en architecture à l'ENSASE et graphiste.">
+<meta name="theme-color" content="#0078BF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFEDE6; --ink:#000; --sheet:#EFEDE6;
+  --blue:#0078BF; --pink:#FF48B0; --yellow:#FFE800; --green:#00A95C; --mat:#1F7A55; --brick:#B24A2B;
+  --blend:multiply;
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --f-text:"Literata",Georgia,"Times New Roman",serif;
+  --noise:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --pad:clamp(1.1rem,4vw,4rem);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#141414;--ink:#EFEDE6;--blend:screen;}
+}
+:root[data-theme="dark"]{--paper:#141414;--ink:#EFEDE6;--blend:screen;}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-text);font-size:1.0625rem;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--yellow);color:#000;padding:.6rem 1rem;z-index:200}
+.skip:focus{left:1rem;top:1rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.85;margin:0;letter-spacing:-.005em}
+
+/* ---------- grain ---------- */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:150;background-image:var(--noise);opacity:.22;mix-blend-mode:multiply;animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-2%,5%)}80%{transform:translate(5%,-2%)}100%{transform:translate(0,0)}}
+
+/* ---------- curseur DAO ---------- */
+.ch{position:fixed;pointer-events:none;z-index:160;background:#fff;mix-blend-mode:difference;opacity:0;transition:opacity .3s}
+.ch-x{left:0;right:0;height:1px;top:0}
+.ch-y{top:0;bottom:0;width:1px;left:0}
+.ch-label{position:fixed;top:0;left:0;z-index:161;pointer-events:none;font-family:var(--f-display);font-weight:700;font-size:.8rem;letter-spacing:.04em;color:#fff;mix-blend-mode:difference;opacity:0;transition:opacity .3s;white-space:nowrap}
+body.has-cursor .ch,body.has-cursor .ch-label{opacity:1}
+
+/* ---------- loader ---------- */
+.loader{position:fixed;inset:0;z-index:180;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad)}
+.loader-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:#9e9b93;background-image:var(--noise);mix-blend-mode:normal}
+.loader-num{position:relative;font-family:var(--f-display);font-weight:900;font-size:clamp(5rem,22vw,18rem);line-height:.8;color:var(--yellow)}
+.loader-txt{position:relative;font-style:italic;margin-bottom:1rem}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem var(--pad);mix-blend-mode:difference;color:#fff}
+.logo{font-family:var(--f-display);font-weight:900;font-size:1.7rem;text-decoration:none;line-height:1}
+.nav ul{display:flex;gap:clamp(.8rem,2.4vw,2.2rem);list-style:none;margin:0;padding:0}
+.nav a{font-family:var(--f-display);font-weight:700;font-size:1.25rem;text-decoration:none}
+.nav a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+
+/* ---------- intro ---------- */
+.intro{position:relative;min-height:100svh;overflow:hidden;padding:6.5rem var(--pad) 9rem;display:grid;grid-template-rows:1fr auto;isolation:isolate}
+.axo{position:absolute;inset:0;width:100%;height:100%;z-index:-1;stroke:var(--ink);stroke-width:1;fill:none;opacity:.4}
+.axo .thick{stroke-width:2.2}
+.axo .hatch{opacity:.7}
+.name{position:relative;font-size:clamp(5.2rem,25vw,24rem);align-self:center;margin-top:1rem;user-select:none}
+.name .layer{display:block}
+.name .layer+.layer{position:absolute;inset:0}
+.name .l-blue{color:var(--blue);mix-blend-mode:var(--blend)}
+.name .l-pink{color:var(--pink);mix-blend-mode:var(--blend)}
+.name .l-yellow{color:var(--yellow);mix-blend-mode:var(--blend)}
+.name .w{display:block;white-space:nowrap}
+.name .c{display:inline-block}
+.lede{justify-self:end;max-width:30ch;font-size:clamp(1.05rem,1.5vw,1.3rem);margin:1.5rem 0 0;position:relative}
+.lede strong{font-weight:600}
+.sticker{position:absolute;font-family:var(--f-display);font-weight:800;font-size:clamp(1rem,1.5vw,1.35rem);line-height:1;padding:.55em .9em;color:#000;white-space:nowrap;z-index:2}
+.st-1{background:var(--yellow);border-radius:999px;top:18%;right:8%;transform:rotate(9deg)}
+.st-2{background:var(--green);color:#fff;top:58%;left:52%;transform:rotate(-7deg);clip-path:polygon(4% 0,100% 6%,96% 100%,0 92%)}
+.st-3{background:var(--sheet);border:2px solid #000;top:12%;left:36%;transform:rotate(-3deg)}
+.cotes span{position:absolute;font-style:italic;font-size:.9rem;opacity:.75;white-space:nowrap}
+.scroll-hint{position:absolute;left:var(--pad);bottom:6.6rem;font-family:var(--f-display);font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:.6rem}
+.scroll-hint i{display:inline-block;width:2px;height:2.2rem;background:currentColor;animation:drop 1.6s ease-in-out infinite;transform-origin:top}
+@keyframes drop{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+.tape{position:absolute;left:-5vw;width:110vw;bottom:2.2rem;transform:rotate(-2.5deg);background:var(--yellow);color:#000;overflow:hidden;z-index:3}
+.tape::before,.tape::after{content:"";display:block;height:9px;background:repeating-linear-gradient(-45deg,#000 0 12px,var(--yellow) 12px 24px)}
+.tape-track{display:flex;width:max-content;animation:marquee 26s linear infinite}
+.tape-track span{font-family:var(--f-display);font-weight:900;font-size:1.6rem;padding:.25rem 1.2rem;white-space:nowrap;text-transform:uppercase}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- table à dessin (zoom) ---------- */
+.zoom{position:relative;height:250vh;background-color:var(--mat);
+  background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+  background-size:200px 200px,200px 200px,40px 40px,40px 40px}
+.zoom-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.mat-note{position:absolute;color:rgba(255,255,255,.8);font-family:var(--f-display);font-weight:700;font-size:1rem}
+.board{width:100vw;height:100vh;background:var(--blue);background-image:var(--noise);color:var(--sheet);padding:5.5rem var(--pad) var(--pad);display:grid;grid-template-rows:1fr auto;gap:2rem;transform-origin:50% 50%;box-shadow:0 2.5rem 5rem rgba(0,0,0,.4);will-change:transform}
+.board h2{font-size:clamp(4.5rem,19vw,20rem);align-self:end}
+.board-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:2rem}
+.board-foot p{max-width:32ch;margin:0;font-size:clamp(1rem,1.4vw,1.25rem)}
+.cartouche{border:2px solid var(--sheet);border-collapse:collapse;font-size:.85rem;min-width:min(100%,360px)}
+.cartouche td{border:1px solid var(--sheet);padding:.35rem .6rem;vertical-align:top}
+.cartouche td:first-child{font-style:italic;opacity:.8;width:40%}
+.cartouche td:last-child{font-family:var(--f-display);font-weight:800;font-size:1.05rem}
+
+/* ---------- index des travaux ---------- */
+.work{background:var(--blue);color:var(--sheet);padding:4rem var(--pad) 9rem;position:relative}
+.tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem}
+.tab{font-family:var(--f-display);font-weight:800;font-size:clamp(1.1rem,1.8vw,1.5rem);border:2px solid var(--sheet);padding:.45em .9em;line-height:1}
+.tab[aria-selected="true"]{background:var(--sheet);color:var(--blue)}
+.tab sup{font-size:.6em;margin-left:.2em}
+.rows{list-style:none;margin:0;padding:0;border-top:2px solid var(--sheet)}
+.row{width:100%;display:grid;grid-template-columns:5.5rem minmax(0,1fr) minmax(0,19rem);gap:1.5rem;align-items:baseline;text-align:left;padding:1.1rem 0;border-bottom:2px solid var(--sheet)}
+.row.no-code{grid-template-columns:minmax(0,1fr) minmax(0,19rem)}
+.row .code{font-family:var(--f-display);font-weight:800;font-size:1.4rem}
+.row .title{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(2rem,6vw,5.4rem);line-height:.9;transition:transform .35s cubic-bezier(.2,.8,.2,1),color .2s}
+.row .place{font-style:italic;font-size:1rem}
+.row:hover .title,.row:focus-visible .title{transform:translateX(1.2rem);color:var(--yellow)}
+.preview{position:fixed;top:0;left:0;width:min(340px,40vw);aspect-ratio:4/3;pointer-events:none;z-index:90;border:3px solid #000;transform:translate(-50%,-50%) scale(0);background-size:cover;background-position:center}
+.preview span{position:absolute;left:.6rem;bottom:.5rem;background:#000;color:#fff;font-family:var(--f-display);font-weight:800;padding:.15rem .5rem}
+@media (hover:none){.preview{display:none}}
+
+/* ---------- tiroir projet ---------- */
+.veil{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;opacity:0;pointer-events:none;transition:opacity .4s}
+.veil.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(1080px,100vw);background:var(--paper);color:var(--ink);z-index:121;transform:translateX(102%);transition:transform .6s cubic-bezier(.7,0,.2,1);overflow-y:auto;padding:1.5rem var(--pad) 3rem;overscroll-behavior:contain}
+.drawer.on{transform:none}
+.drawer-close{font-family:var(--f-display);font-weight:800;font-size:1.2rem;border:2px solid var(--ink);padding:.3em .8em;margin-bottom:2rem}
+.drawer h3{font-size:clamp(2.6rem,7vw,5rem);margin:.4rem 0 1rem}
+.drawer .meta{font-style:italic}
+.drawer .hero-pat{aspect-ratio:3/2;border:3px solid var(--ink);margin:1.5rem 0;background-size:cover;background-position:center}
+.drawer .sub{font-family:var(--f-display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.9rem);margin:0 0 .3rem;line-height:1}
+.drawer-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:2rem}
+.drawer-top .drawer-close{margin:0}
+.drawer-count{font-style:italic;font-size:.95rem}
+.d-text{max-width:62ch;margin:2rem 0 2.5rem}
+.d-text p{font-size:clamp(1.02rem,1.3vw,1.15rem);line-height:1.7;margin:0 0 1rem}
+.d-text p:first-child::first-letter{font-family:var(--f-display);font-weight:900;float:left;font-size:4.2em;line-height:.8;margin:.08em .12em 0 0;color:var(--blue)}
+.gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1rem 1rem}
+.gallery figure{margin:0;grid-column:span 6}
+.gallery figure.half{grid-column:span 3}
+.gallery figure.third{grid-column:span 2}
+.gallery figure.narrow{grid-column:2 / span 4}
+.gallery figure.third img{aspect-ratio:3/4;object-fit:cover}
+.gallery button{display:block;width:100%;border:3px solid var(--ink);background:#fff;cursor:zoom-in;overflow:hidden}
+.gallery img{width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.gallery figure.half:not(.drawing):not(.nocrop) img{aspect-ratio:3/4;object-fit:cover}
+.gallery button:hover img{transform:scale(1.03)}
+.gallery .drawing button{background:transparent;border-style:dashed}
+.gallery .drawing img{mix-blend-mode:multiply}
+.gallery figcaption{font-style:italic;font-size:.9rem;margin-top:.45rem}
+.hero-img{border:3px solid var(--ink);margin:1.5rem 0 0;overflow:hidden;cursor:zoom-in;display:block;width:100%;padding:0}
+.hero-img img{width:100%;height:auto}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gallery .drawing img{mix-blend-mode:normal}}
+:root[data-theme="dark"] .gallery .drawing img{mix-blend-mode:normal}
+@media (max-width:600px){.gallery figure.half,.gallery figure.third,.gallery figure.narrow{grid-column:span 6}.gallery figure.half img{aspect-ratio:auto}}
+.viewer{margin:0 0 2.5rem}
+.viewer-stage{position:relative;aspect-ratio:16/10;border:3px solid var(--ink);background:#EFEDE6 center/cover no-repeat;overflow:hidden;display:grid;place-items:center}
+.viewer-stage::before{content:"";position:absolute;inset:0;background:var(--blue);mix-blend-mode:multiply;opacity:.75}
+.viewer-stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}
+.viewer-stage canvas:active{cursor:grabbing}
+.viewer.live .viewer-stage::before,.viewer.live .viewer-start{display:none}
+.viewer-start{position:relative;z-index:1;font-family:var(--f-display);font-weight:800;font-size:clamp(1.2rem,2.4vw,1.7rem);background:var(--yellow);color:#000;border:3px solid #000;padding:.6em 1.2em;max-width:90%}
+.viewer-start:disabled{cursor:progress}
+.viewer figcaption{display:flex;justify-content:space-between;gap:.4rem 1rem;flex-wrap:wrap;font-style:italic;font-size:.9rem;margin-top:.45rem}
+.viewer-tools{display:none;gap:.5rem;margin-top:.6rem}
+.viewer.live .viewer-tools{display:flex}
+.viewer-tools button{font-family:var(--f-display);font-weight:800;font-size:1.05rem;border:2px solid var(--ink);padding:.25em .8em}
+.viewer-stage:fullscreen{aspect-ratio:auto;border:0}
+.lightbox{position:fixed;inset:0;z-index:175;background:rgba(0,0,0,.92);display:none;grid-template-rows:auto 1fr auto;padding:1rem var(--pad);color:var(--sheet)}
+.lightbox.on{display:grid}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.lb-bar button,.lb-nav button{font-family:var(--f-display);font-weight:800;font-size:1.2rem;border:2px solid var(--sheet);padding:.3em .8em;color:var(--sheet)}
+.lb-stage{display:grid;place-items:center;min-height:0;padding:1rem 0}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;background:#fff}
+.lb-nav{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.lb-nav p{margin:0;font-style:italic;text-align:center}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.5rem}
+.slots div{aspect-ratio:3/4;border:2px dashed var(--ink);display:grid;place-items:center;font-size:.8rem;font-style:italic;text-align:center;padding:.4rem;opacity:.7}
+
+/* ---------- à propos ---------- */
+.about{padding:9rem var(--pad);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,6vw,6rem);align-items:start}
+.photo{aspect-ratio:4/5;background:#8f8b82;background-image:var(--noise),radial-gradient(circle at 30% 20%,rgba(255,255,255,.25),transparent 60%);border:3px solid var(--ink);display:flex;align-items:flex-end;padding:1rem;color:#fff;font-style:italic;font-size:.95rem}
+.about h2{font-size:clamp(3.5rem,10vw,9rem);margin-bottom:2rem}
+.about p{font-size:clamp(1.1rem,1.6vw,1.4rem);line-height:1.65;max-width:58ch;margin:0 0 1.2rem}
+.skills{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:2rem 0 0}
+.skills li{border:2px solid var(--ink);padding:.3rem .8rem;font-family:var(--f-display);font-weight:700;font-size:1.1rem}
+
+/* ---------- parcours (défilement horizontal) ---------- */
+.parcours{background:var(--yellow);color:#000;overflow:hidden}
+.parcours-pin{min-height:100vh;display:flex;align-items:center}
+.track{display:flex;gap:clamp(1rem,2.5vw,2.5rem);padding:6rem var(--pad);align-items:stretch;will-change:transform}
+.track-head{flex:0 0 min(80vw,520px);display:flex;flex-direction:column;justify-content:space-between}
+.track-head h2{font-size:clamp(4rem,11vw,11rem)}
+.track-head p{max-width:28ch;font-size:1.15rem}
+.card{flex:0 0 min(80vw,430px);background:var(--sheet);border:3px solid #000;display:flex;flex-direction:column}
+.mat{height:clamp(150px,26vh,240px);border-bottom:3px solid #000;position:relative}
+.mat em{position:absolute;right:.6rem;top:.5rem;background:#000;color:#fff;font-style:normal;font-family:var(--f-display);font-weight:700;font-size:.9rem;padding:.1rem .45rem}
+.mat-terre{background-color:#6f4527;background-image:var(--noise),repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 3px,transparent 3px 34px),repeating-linear-gradient(90deg,rgba(255,220,180,.08) 0 2px,transparent 2px 9px)}
+.mat-pierre{background-color:#9a958a;background-image:var(--noise),radial-gradient(ellipse 60px 34px at 20% 30%,#b4afa4 60%,transparent 62%),radial-gradient(ellipse 80px 40px at 65% 25%,#86817a 60%,transparent 62%),radial-gradient(ellipse 70px 38px at 40% 72%,#aaa498 60%,transparent 62%),radial-gradient(ellipse 60px 30px at 85% 70%,#7d786f 60%,transparent 62%)}
+.mat-parpaing{background-color:#b7b3aa;background-image:var(--noise),linear-gradient(#6f6c66 3px,transparent 3px),linear-gradient(90deg,#6f6c66 3px,transparent 3px);background-size:auto,100% 46px,92px 92px;background-position:0 0,0 0,0 0}
+.mat-calque{background-color:#f6f6f1;background-image:repeating-linear-gradient(45deg,rgba(0,120,191,.45) 0 1px,transparent 1px 10px),linear-gradient(90deg,transparent 30%,rgba(0,0,0,.6) 30%,rgba(0,0,0,.6) calc(30% + 2px),transparent calc(30% + 2px)),linear-gradient(transparent 60%,rgba(0,0,0,.6) 60%,rgba(0,0,0,.6) calc(60% + 2px),transparent calc(60% + 2px))}
+.mat-ecran{background-color:#0a2a4a;background-image:linear-gradient(rgba(0,169,92,.55) 1px,transparent 1px),linear-gradient(90deg,rgba(0,169,92,.55) 1px,transparent 1px);background-size:22px 22px;perspective:300px}
+.card-body{padding:1.3rem 1.4rem 1.6rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+.year{font-family:var(--f-display);font-weight:900;font-size:3.4rem;line-height:.9}
+.card h3{font-size:1.9rem;line-height:.95}
+.card .where{font-style:italic;margin:0 0 .6rem}
+.card ul{margin:0;padding-left:1.1rem;font-size:.98rem;line-height:1.5}
+.card li+li{margin-top:.35rem}
+
+/* ---------- formation ---------- */
+.formation{padding:9rem var(--pad) 7rem}
+.formation h2{font-size:clamp(3.5rem,10vw,9rem);margin-bottom:2.5rem}
+.frow{display:grid;grid-template-columns:minmax(8rem,14rem) minmax(0,1fr) auto;gap:1.5rem;align-items:center;border:3px solid var(--ink);padding:1.4rem 1.6rem;position:relative}
+.frow+.frow{border-top:0}
+.frow .yrs{font-family:var(--f-display);font-weight:900;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1}
+.frow h3{font-size:clamp(1.5rem,2.6vw,2.3rem);line-height:.95;text-transform:none}
+.frow p{margin:.3rem 0 0;font-style:italic}
+.frow:nth-of-type(1){background:var(--pink);color:#000}
+.frow:nth-of-type(2){background:var(--sheet);color:#000}
+.frow:nth-of-type(3){background:var(--blue);color:var(--sheet)}
+.stamp{font-family:var(--f-display);font-weight:900;font-size:1.15rem;line-height:1;text-align:center;border:3px double currentColor;padding:.5rem .8rem;transform:rotate(-8deg);white-space:nowrap;color:#000}
+.frow:nth-of-type(1) .stamp{color:#000}
+.frow:nth-of-type(2) .stamp{color:var(--pink);border-color:var(--pink)}
+.levels{display:flex;gap:.3rem}
+.levels span{width:3.2rem;height:2.4rem;border:2px solid var(--sheet);display:grid;place-items:center;font-family:var(--f-display);font-weight:800}
+.levels .done{background:var(--sheet);color:var(--blue)}
+.levels .now{background:repeating-linear-gradient(-45deg,var(--sheet) 0 5px,transparent 5px 10px);color:var(--sheet);text-shadow:0 0 4px var(--blue),0 0 4px var(--blue)}
+
+/* ---------- FAQ ---------- */
+.faq{background:#000;color:var(--sheet);padding:8rem var(--pad);background-image:var(--noise)}
+.faq h2{font-size:clamp(3rem,8vw,7rem);margin-bottom:2.5rem;color:var(--green)}
+.faq details{border-top:2px dashed var(--green);max-width:1100px}
+.faq details:last-child{border-bottom:2px dashed var(--green)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:1rem;padding:1.2rem 0;font-family:var(--f-display);font-weight:800;font-size:clamp(1.4rem,3vw,2.4rem);line-height:1}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--pink);flex:none;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 1.4rem;max-width:60ch;font-size:1.1rem}
+
+/* ---------- contact ---------- */
+.contact{position:relative;min-height:100vh;background:var(--pink);color:#000;display:grid;grid-template-rows:1fr auto;padding:7rem var(--pad) 2rem;overflow:hidden}
+#brick{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.contact-inner{position:relative;align-self:center;pointer-events:none}
+.contact h2{font-size:clamp(4rem,13vw,13rem);max-width:9ch}
+.contact .mail{pointer-events:auto;display:inline-block;margin-top:2rem;background:#000;color:var(--sheet);font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,2.4vw,2rem);padding:.6em 1.1em;text-decoration:none;transition:transform .25s}
+.contact .mail:hover{transform:rotate(-2deg) scale(1.04)}
+.brick-note{position:absolute;right:var(--pad);bottom:5.5rem;max-width:24ch;font-style:italic;font-size:.95rem;text-align:right;pointer-events:none}
+.foot{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;border-top:2px solid #000;padding-top:1rem;font-size:.95rem}
+.foot button{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- chantier secret ---------- */
+.secret{position:fixed;inset:0;z-index:170;background:var(--green);color:#000;display:none;place-items:center;padding:var(--pad);overflow:hidden}
+.secret.on{display:grid}
+.secret-inner{position:relative;z-index:2;max-width:60ch}
+.secret h2{font-size:clamp(4rem,14vw,13rem);color:var(--yellow);-webkit-text-stroke:3px #000}
+.secret p{font-size:1.2rem}
+.secret button{font-family:var(--f-display);font-weight:800;font-size:1.3rem;border:3px solid #000;background:var(--sheet);padding:.4em 1em;margin-top:1rem}
+.fall{position:absolute;top:-80px;width:70px;height:30px;border:2px solid #000;z-index:1}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .nav ul{gap:.8rem}.nav li:not(:last-child):nth-child(n+3){display:none}
+  .row,.row.no-code{grid-template-columns:1fr;gap:.3rem}
+  .row .code{font-size:1.1rem}
+  .about{grid-template-columns:1fr}
+  .photo{max-width:420px}
+  .parcours-pin{min-height:0}
+  .track{flex-direction:column;padding:5rem var(--pad)}
+  .track-head,.card{flex:none;width:100%}
+  .frow{grid-template-columns:1fr}
+  .stamp{justify-self:start}
+  .st-2{left:auto;right:6%;top:64%}
+  .st-3{left:auto;right:4%;top:30%}
+  .brick-note{position:relative;right:auto;bottom:auto;text-align:left;margin-top:1.5rem}
+  #brick{opacity:.55}
+}
+@media (pointer:coarse){.ch,.ch-label{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .grain,.tape-track,.scroll-hint i{animation:none}
+  .row .title,.drawer,.veil{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#travaux">Aller aux travaux</a>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-fill" id="loaderFill"></div>
+  <div class="loader-txt">Coulage de la dalle en cours…</div>
+  <div class="loader-num" id="loaderNum">±0.00</div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="ch ch-x" aria-hidden="true"></div>
+<div class="ch ch-y" aria-hidden="true"></div>
+<div class="ch-label" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="logo" href="#top" aria-label="Retour en haut">J.D.</a>
+  <nav aria-label="Navigation principale">
+    <ul>
+      <li><a href="#travaux">Travaux</a></li>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<!-- ============ INTRO ============ -->
+<section class="intro" id="top">
+  <svg class="axo" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="draw">
+      <path class="thick" d="M860 620 L1160 450 L1440 610 L1140 780 Z"/>
+      <path class="thick" d="M860 620 L860 330 L1160 160 L1160 450"/>
+      <path class="thick" d="M1160 160 L1440 320 L1440 610"/>
+      <path d="M860 330 L1140 490 L1140 780"/>
+      <path d="M1140 490 L1440 320"/>
+      <path d="M940 575 L940 420 L1030 370 L1030 525"/>
+      <path d="M1240 540 L1240 420 L1330 470 L1330 590"/>
+      <path class="hatch" d="M880 600 L880 360 M900 590 L900 350 M920 580 L920 340 M960 560 L960 320 M980 548 L980 308 M1000 537 L1000 297 M1050 508 L1050 262 M1070 497 L1070 250 M1090 486 L1090 240 M1110 475 L1110 228 M1130 464 L1130 216"/>
+      <path d="M120 860 L700 860 M120 850 L120 870 M700 850 L700 870 M300 855 L300 865 M500 855 L500 865"/>
+      <path d="M160 180 A60 60 0 1 1 160.1 180 M160 150 L160 330 M70 240 L250 240"/>
+      <path d="M160 150 L150 185 L170 185 Z"/>
+      <path d="M1500 80 L1500 900 M1490 80 L1510 80 M1490 900 L1510 900"/>
+    </g>
+  </svg>
+
+  <h1 class="name" aria-label="Duca Jessy">
+    <span class="layer l-blue" aria-hidden="true"><span class="w">Duca</span><span class="w">Jessy</span></span>
+    <span class="layer l-pink" aria-hidden="true"><span class="w">Duca</span><span class="w">Jessy</span></span>
+    <span class="layer l-yellow" aria-hidden="true"><span class="w">Duca</span><span class="w">Jessy</span></span>
+  </h1>
+
+  <p class="lede">Étudiant en architecture à l'<strong>ENSASE</strong>, à Saint-Étienne. Je dessine des bâtiments, je monte sur les chantiers, et je fais des affiches pour les soirées.</p>
+
+  <span class="sticker st-1">Licence 3 en cours</span>
+  <span class="sticker st-2">Architecture + graphisme</span>
+  <span class="sticker st-3">ex-STD2A</span>
+
+  <div class="cotes" aria-hidden="true">
+    <span style="top:14%;left:6%">±0.00 NGF</span>
+    <span style="top:30%;left:82%">▲N</span>
+    <span style="top:46%;left:4%">1:100</span>
+    <span style="top:72%;left:30%">+3.20</span>
+    <span style="top:24%;left:60%">⌀ 12</span>
+    <span style="top:80%;left:74%">R+1 ⟂ 2.50</span>
+    <span style="top:8%;left:70%">45°</span>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true"><i></i>Descendre</div>
+
+  <div class="tape" aria-hidden="true">
+    <div class="tape-track">
+      <span>Chantier en cours ✱ Architecture ✱ Graphisme ✱ Saint-Étienne ✱ Loire 42 ✱ Maquettes ✱ Affiches ✱</span>
+      <span>Chantier en cours ✱ Architecture ✱ Graphisme ✱ Saint-Étienne ✱ Loire 42 ✱ Maquettes ✱ Affiches ✱</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TABLE À DESSIN ============ -->
+<section class="zoom" aria-labelledby="planches-title">
+  <div class="zoom-stage">
+    <span class="mat-note" style="top:6%;left:4%">Tapis de coupe A1</span>
+    <span class="mat-note" style="bottom:6%;right:4%">Cutter, colle, calque, café</span>
+    <div class="board" id="board">
+      <h2 id="planches-title">Planches</h2>
+      <div class="board-foot">
+        <p>Projets d'atelier, analyses d'édifices et graphisme d'événements, de 2023 à aujourd'hui.</p>
+        <table class="cartouche">
+          <tr><td>Auteur</td><td>Jessy Duca</td></tr>
+          <tr><td>École</td><td>ENSASE, Saint-Étienne</td></tr>
+          <tr><td>Échelle</td><td>1:1</td></tr>
+          <tr><td>Contenu</td><td>15 planches</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAVAUX ============ -->
+<section class="work" id="travaux" aria-label="Travaux">
+  <div class="tabs" role="tablist" aria-label="Catégories de travaux">
+    <button class="tab" role="tab" aria-selected="true" data-cat="projets">Projets personnels<sup>6</sup></button>
+    <button class="tab" role="tab" aria-selected="false" data-cat="analyses">Analyses<sup>6</sup></button>
+    <button class="tab" role="tab" aria-selected="false" data-cat="graphisme">Affiches &amp; flyers<sup>3</sup></button>
+  </div>
+  <ul class="rows" id="rows" role="tabpanel"></ul>
+  <div class="preview" id="preview" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- ============ À PROPOS ============ -->
+<section class="about" id="apropos">
+  <div class="photo">Ta photo ici. Plutôt sur un chantier qu'en col roulé.</div>
+  <div>
+    <h2>À propos</h2>
+    <p>Diplômé d'un bac Sciences et Technologies du Design et des Arts Appliqués, je poursuis aujourd'hui mes études en architecture à l'ENSASE de Saint-Étienne.</p>
+    <p>Mon parcours a nourri mon goût du travail, de la créativité, de la réflexion et de la conception en équipe. Organisé, attentif au détail et à l'aise avec la prise d'initiative, j'ai affiné mon dessin et appris la démarche nécessaire pour répondre à une demande.</p>
+    <ul class="skills">
+      <li>Dessin</li><li>Modélisation 3D</li><li>Maquette</li><li>Graphisme</li><li>Chantier</li><li>Travail en équipe</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PARCOURS ============ -->
+<section class="parcours" id="parcours">
+  <div class="parcours-pin">
+    <div class="track" id="track">
+      <div class="track-head">
+        <h2>Sur le terrain</h2>
+        <p>Des agences d'architecture au chantier, du parpaing à la pierre sèche. Chaque expérience, un matériau.</p>
+      </div>
+
+      <article class="card">
+        <div class="mat mat-terre"><em>Bois de récup'</em></div>
+        <div class="card-body">
+          <div class="year">2026</div>
+          <h3>Occupation ZAD</h3>
+          <p class="where">Thonon-les-Bains</p>
+          <ul>
+            <li>Occupation d'un espace dans le cadre d'une lutte territoriale et environnementale.</li>
+            <li>Organisation de la vie collective au sein d'un groupe engagé sur le temps long.</li>
+            <li>Construction et aménagement à partir des ressources disponibles sur site.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="mat mat-pierre"><em>Pierre sèche</em></div>
+        <div class="card-body">
+          <div class="year">2025</div>
+          <h3>Restauration d'un sentier romain</h3>
+          <p class="where">Archi, Italie</p>
+          <ul>
+            <li>Restauration et entretien d'un sentier historique.</li>
+            <li>Travail en équipe internationale sur un chantier de préservation du patrimoine.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="mat mat-parpaing"><em>Parpaing</em></div>
+        <div class="card-body">
+          <div class="year">2024</div>
+          <h3>Stage ouvrier du bâtiment, Petrabat</h3>
+          <p class="where">Saint-Cierge-la-Serre</p>
+          <ul>
+            <li>Rigueur et précision : suivre des plans et respecter des consignes techniques.</li>
+            <li>Endurance et discipline dans des conditions physiques exigeantes.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="mat mat-calque"><em>Papier calque</em></div>
+        <div class="card-body">
+          <div class="year">2021</div>
+          <h3>Stage, agence d'architecture Monjauze</h3>
+          <p class="where">Le Puy-en-Velay</p>
+          <ul>
+            <li>Travailler en restant attentif aux attentes du client.</li>
+            <li>Être minutieux dans les modélisations et les dessins.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="mat mat-ecran"><em>Modélisation 3D</em></div>
+        <div class="card-body">
+          <div class="year">2019</div>
+          <h3>Stage, agence d'architecture Charnay</h3>
+          <p class="where">Aubenas</p>
+          <ul>
+            <li>Création de graphiques et de visuels pour des modélisations 3D.</li>
+            <li>Veille à la sécurité des ouvriers.</li>
+            <li>Organisation des fichiers.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMATION ============ -->
+<section class="formation" id="formation">
+  <h2>Formation</h2>
+  <div class="frow">
+    <div class="yrs">2019</div>
+    <div><h3>Diplôme national du brevet</h3><p>Collège privé Joseph Durand</p></div>
+    <div class="stamp">Mention<br>très bien</div>
+  </div>
+  <div class="frow">
+    <div class="yrs">2020–2023</div>
+    <div><h3>Bac technologique STD2A</h3><p>Lycée privé Saint-Pierre Saint-Paul, Langogne</p></div>
+    <div class="stamp">Mention<br>très bien</div>
+  </div>
+  <div class="frow">
+    <div class="yrs">2023–2026</div>
+    <div><h3>Licence d'architecture</h3><p>École nationale supérieure d'architecture de Saint-Étienne</p></div>
+    <div class="levels" aria-label="Licence 1 et 2 validées, licence 3 en cours">
+      <span class="done">L1</span><span class="done">L2</span><span class="now">L3</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" aria-labelledby="faq-title">
+  <h2 id="faq-title">Questions fréquentes</h2>
+  <details><summary>Tu fais quoi, exactement ?</summary><p>Des études d'architecture à l'ENSASE, et du graphisme pour des événements. Les deux se nourrissent : un plan bien composé, c'est déjà presque une affiche.</p></details>
+  <details><summary>Pourquoi il y a des cotes partout sur ce site ?</summary><p>Déformation professionnelle. On ne sort jamais vraiment de l'atelier.</p></details>
+  <details><summary>Tu as déjà mis les mains dans le béton ?</summary><p>Oui : maçonnerie chez Petrabat, restauration d'un sentier romain en Italie, construction avec les ressources du site à Thonon.</p></details>
+  <details><summary>Tu peux me dessiner une véranda, vite fait ?</summary><p>Non. Mais on peut en parler autour d'un café.</p></details>
+  <details><summary>Tu dors combien d'heures la semaine des rendus ?</summary><p>Question suivante.</p></details>
+  <details><summary>Il y a un truc caché sur ce site ?</summary><p>Tape mon prénom au clavier, mais en chiffres. Indice : A vaut 1.</p></details>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <canvas id="brick" aria-hidden="true"></canvas>
+  <div class="contact-inner">
+    <h2>On pose la première pierre ?</h2>
+    <a class="mail" href="mailto:ton.email@exemple.fr">Écrire à Jessy</a>
+  </div>
+  <p class="brick-note">Oui, c'est une brique en 3D. Il paraît que tout portfolio doit en avoir une. Tu peux la faire tourner.</p>
+  <footer class="foot">
+    <span>© 2026 Jessy Duca, Saint-Étienne</span>
+    <button type="button" id="toTop">Remonter au niveau ±0.00</button>
+  </footer>
+</section>
+</main>
+
+<!-- tiroir projet -->
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true">
+  <div class="drawer-top"><button class="drawer-close" id="dClose" type="button">Fermer</button><span class="drawer-count" id="dCount"></span></div>
+  <p class="meta" id="dMeta"></p>
+  <h3 id="dTitle"></h3>
+  <p class="sub" id="dSub"></p>
+  <p class="meta" id="dPlace"></p>
+  <div id="dBody"></div>
+</aside>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
+  <div class="lb-bar"><span id="lbCount"></span><button type="button" id="lbClose">Fermer</button></div>
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-nav"><button type="button" id="lbPrev">Précédente</button><p id="lbCap"></p><button type="button" id="lbNext">Suivante</button></div>
+</div>
+
+<!-- chantier secret -->
+<div class="secret" id="secret" role="dialog" aria-modal="true" aria-labelledby="sTitle">
+  <div class="secret-inner">
+    <h2 id="sTitle">Chantier secret</h2>
+    <p>Bien joué. Ici, c'est la réserve : croquis ratés, maquettes écrasées dans le train et idées de 3 h du matin. Tu n'as rien vu.</p>
+    <button type="button" id="sClose">Refermer la palissade</button>
+  </div>
+</div>
+
+<script>window.IMG={"elev1": "images/elev1.webp", "elev2": "images/elev2.webp", "illu": "images/illu.webp", "maquette1": "images/maquette1.webp", "maquette2": "images/maquette2.webp", "plan": "images/plan.webp", "r_axo": "images/r_axo.webp", "r_geo1": "images/r_geo1.webp", "r_geo2": "images/r_geo2.webp", "s2_c1": "images/s2_c1.webp", "s2_c2": "images/s2_c2.webp", "s2_ext": "images/s2_ext.webp", "s2_fac": "images/s2_fac.webp", "s2_int": "images/s2_int.webp", "s2_p1": "images/s2_p1.webp", "s2_p2": "images/s2_p2.webp", "s2_rdc": "images/s2_rdc.webp", "s2_situ": "images/s2_situ.webp", "s3_cyan_ext": "images/s3_cyan_ext.webp", "s3_cyan_int": "images/s3_cyan_int.webp", "s3_m1": "images/s3_m1.webp", "s3_ph1": "images/s3_ph1.webp", "s3_ph2": "images/s3_ph2.webp", "s3_ph3": "images/s3_ph3.webp", "s3_rdc": "images/s3_rdc.webp", "s4_axo": "images/s4_axo.webp", "s4_det1": "images/s4_det1.webp", "s4_det2": "images/s4_det2.webp", "s4_det3": "images/s4_det3.webp", "s4_geo1": "images/s4_geo1.webp", "s4_geo2": "images/s4_geo2.webp", "s4_m1": "images/s4_m1.webp", "s4_m2": "images/s4_m2.webp", "s4_m3": "images/s4_m3.webp", "s4_m4": "images/s4_m4.webp", "s4_m5": "images/s4_m5.webp", "s4_masse": "images/s4_masse.webp", "s4_site1": "images/s4_site1.webp", "s4_site2": "images/s4_site2.webp", "s4_site3": "images/s4_site3.webp", "s5_axo_implant": "images/s5_axo_implant.webp", "s5_axo_parcelle": "images/s5_axo_parcelle.webp", "s5_axo_passerelle": "images/s5_axo_passerelle.webp", "s5_champs": "images/s5_champs.webp", "s5_coupe": "images/s5_coupe.webp", "s5_plan_implant": "images/s5_plan_implant.webp", "s5_plan_passerelle": "images/s5_plan_passerelle.webp", "s5_qgis_forets": "images/s5_qgis_forets.webp", "s5_qgis_influence": "images/s5_qgis_influence.webp", "s5_vegetal": "images/s5_vegetal.webp"};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+/* ================= DONNÉES ================= */
+/* Pour ajouter une image : renseigne img:"url-ou-data-uri" sur un élément. */
+const WORKS = {
+  projets: [
+    {code:"S1", title:"Base vie", sub:"Vivre et habiter", place:"Teramo, Abruzzes, Italie", c:["#0078BF","#FFE800"], a:45, img:"maquette1",
+     desc:[
+      "À partir d'objets du quotidien disposés aléatoirement sur une feuille A4, ce projet constitue une première expérience de tracés géométraux sur AutoCAD. Il explore la conception d'un habitat rudimentaire organisé autour de fonctions primaires : se laver, se reposer et cuisiner. Le projet s'appuie sur l'expérimentation de trois matériaux, le parpaing, la charpente bois et la tôle ondulée, afin d'en comprendre les principes structurels.",
+      "Le plan, résolument arrondi, s'écarte de l'académisme rectiligne habituellement attendu, ce qui lui a valu certaines critiques du jury. C'est pourtant un parti pris que j'assume pleinement pour ce premier projet : l'habitat a été pensé pour un mélomane passionné, à mon image.",
+      "L'absence d'angles droits et de murs fermés permet à la musique de se diffuser de manière homogène dans tout l'espace intérieur, qu'il s'agisse de la chambre ou de la cuisine : le son y reste toujours présent, en fond continu."
+     ],
+     gallery:[
+      {src:"plan", cap:"Plan intérieur, organisé autour d'un patio planté", kind:"drawing"},
+      {src:"elev1", cap:"Élévation géométrale, façade d'entrée", kind:"drawing"},
+      {src:"elev2", cap:"Élévation géométrale, façade latérale et toiture en tôle ondulée", kind:"drawing"},
+      {src:"illu", cap:"Ambiance intérieure, illustration Photoshop", kind:"photo", half:true},
+      {src:"maquette2", cap:"Maquette, vue plongeante sur la toiture rayonnante", kind:"photo", half:true}
+     ]},
+    {code:"S2", title:"Campus Jacquard", sub:"Un équipement ouvert sur la ville", place:"Saint-Étienne, Loire (42)", c:["#FF48B0","#0078BF"], a:-30, img:"s2_ext", heroCap:"Ambiance extérieure, illustration Photoshop",
+     desc:[
+      "Ce projet s'intègre au cœur du quartier Jacquard à Saint-Étienne, où s'implante aujourd'hui une nouvelle réflexion : l'extension de l'École nationale supérieure d'architecture, de la Comédie et de l'Université Jean Monnet.",
+      "Le travail a porté sur l'insertion du bâtiment dans une masse urbaine déjà existante, et sur la conception d'un équipement public cohérent avec le site, ouvert sur la ville."
+     ],
+     gallery:[
+      {src:"s2_situ", cap:"Plan de situation, 1/500", kind:"drawing"},
+      {src:"s2_rdc", cap:"Plan du rez-de-chaussée, 1/200", kind:"drawing"},
+      {src:"s2_p1", cap:"Plan R+1, 1/200", kind:"drawing", half:true},
+      {src:"s2_p2", cap:"Plan R+2, 1/200", kind:"drawing", half:true},
+      {src:"s2_c1", cap:"Coupe longitudinale, 1/200", kind:"drawing"},
+      {src:"s2_c2", cap:"Coupe transversale, 1/200", kind:"drawing"},
+      {src:"s2_fac", cap:"Façades principales en brique", kind:"drawing"},
+      {src:"s2_int", cap:"Ambiance intérieure, illustration Photoshop", kind:"photo"}
+     ]},
+    {code:"S3", title:"Pôle balnéaire", sub:"Bains, sauna et guinguette", place:"Saint-Victor-sur-Loire, Loire (42)", c:["#00A95C","#FFE800"], a:90, img:"s3_cyan_ext", heroCap:"Espace piscine à phytoépuration, impression cyanotype",
+     model:"glb-pole", modelPoster:"s3_ph2", modelCap:"Maquette numérique du projet",
+     desc:[
+      "Sur les bords de la Loire, ce projet propose un pôle balnéaire et de bien-être : piscine, sauna, hammam et vestiaires publics.",
+      "Implanté à l'extrémité droite de la parcelle, entre le parking et la plage, le bâtiment s'adosse au terrain de volley pour compléter cet espace de loisirs, tout en préservant le reste du site pour d'autres usages. Incrusté dans la topographie, il prolonge le chemin existant du parking à la plage : un escalier massif central invite les usagers à traverser le bâtiment plutôt qu'à le contourner.",
+      "Sa forme en T distingue deux ambiances. D'un côté, le sauna et le hammam, espaces privés et intimes, accompagnés d'une piscine extérieure à phytoépuration pensée pour la détente. De l'autre, la guinguette prolonge l'énergie du terrain de volley dans une atmosphère conviviale. Entre les deux, un vestiaire public dessert la plage, sous une toiture à voile.",
+      "Orienté est-ouest, le bâtiment ouvre ses façades vers le fleuve pour capter la lumière naturelle et les vues sur le paysage. Une trame en bois de 2 mètres rythme ces façades et structure l'ensemble du projet, organisant les espaces intérieurs et générant des circulations extérieures couvertes et ombragées. Les espaces techniques, regroupés en partie basse et semi-enterrée, libèrent les façades vitrées et préservent les vues vers la Loire depuis le sauna, le hammam ou la terrasse de la guinguette."
+     ],
+     gallery:[
+      {src:"s3_rdc", cap:"Plan du rez-de-chaussée et coupe, 1/200", kind:"drawing", half:true},
+      {src:"s3_m1", cap:"Plan du niveau -1 et coupe, 1/200", kind:"drawing", half:true},
+      {src:"s3_ph1", cap:"Maquette, vue d'ensemble sur la pente", kind:"photo", third:true},
+      {src:"s3_ph2", cap:"Maquette, escalier central et toitures", kind:"photo", third:true},
+      {src:"s3_ph3", cap:"Maquette, trame bois et toiture en tôle", kind:"photo", third:true},
+      {src:"s3_cyan_int", cap:"Vestiaires du sauna, impression cyanotype", kind:"photo"}
+     ]},
+    {code:"S4", title:"Centre communautaire polyvalent", sub:"Café, marché et salle polyvalente", place:"Saint-Paul-en-Cornillon, Loire (42)", c:["#FFE800","#FF48B0"], a:0, img:"s4_det1", heroCap:"Maquette de détail en coupe, 1/50",
+     model:"glb-centre", modelPoster:"s4_m5", modelCap:"Maquette numérique du projet",
+     desc:[
+      "Ce projet de fin de quatrième semestre consiste en la conception d'un centre culturel à Saint-Paul-en-Cornillon. Implanté sur un site à la topographie marquée par différents paliers (parking, salle polyvalente, city-stade), le projet compose avec les usages existants : chemin de randonnée, terrain de pétanque, espaces pour les enfants et arbres en place.",
+      "Le bâtiment se compose de deux entités. La première, habillée d'une tôle rouge inspirée des fermes alentour, entre volontairement en contraste avec le village en pierre : elle s'y affirme sans le dépayser. Elle abrite un café participatif et d'exposition, un espace polyvalent en rez-de-chaussée, ainsi que des sanitaires publics.",
+      "La seconde partie, directement accolée à la première, accueille les marchés. Reprenant la même forme mais traitée avec beaucoup plus de légèreté, elle se distingue par l'absence de couverture fixe : seule la structure bois reste apparente, protégée des intempéries par un voile rétractable."
+     ],
+     gallery:[
+      {src:"s4_masse", cap:"Plan masse, 1/500", kind:"photo", half:true, nocrop:true},
+      {src:"s4_axo", cap:"Axonométrie éclatée de la charpente bois", kind:"drawing", half:true},
+      {src:"s4_geo1", cap:"Plan et coupe, 1/200", kind:"drawing", half:true},
+      {src:"s4_geo2", cap:"Plan et coupe, 1/200", kind:"drawing", half:true},
+      {src:"s4_det2", cap:"Maquette de détail en coupe, 1/50, la halle du marché", kind:"photo", half:true, nocrop:true},
+      {src:"s4_det3", cap:"Maquette de détail en coupe, 1/50, vue frontale", kind:"photo", half:true, nocrop:true},
+      {src:"s4_m1", cap:"Maquette 1/200, le site et ses paliers vus du dessus", kind:"photo"},
+      {src:"s4_m2", cap:"Maquette 1/200, le bâtiment dans la pente", kind:"photo", half:true, nocrop:true},
+      {src:"s4_m3", cap:"Maquette 1/200, vue depuis le bas du site", kind:"photo", half:true, nocrop:true},
+      {src:"s4_m4", cap:"Maquette 1/200, la halle ouverte", kind:"photo", half:true, nocrop:true},
+      {src:"s4_m5", cap:"Maquette 1/200, les deux entités accolées", kind:"photo", half:true, nocrop:true},
+      {src:"s4_site1", cap:"Maquette de site, la vallée de la Loire", kind:"photo"},
+      {src:"s4_site2", cap:"Maquette de site, le village et son château", kind:"photo", half:true},
+      {src:"s4_site3", cap:"Maquette de site, vue d'ensemble", kind:"photo", half:true}
+     ]},
+    {code:"S5", title:"Revalorisation des ripisylves", sub:"Renforcement et aménagement des haies ripisylves", place:"Sainte-Catherine, Rhône (69)", c:["#00A95C","#0078BF"], a:60, img:"s5_axo_parcelle", heroCap:"Axonométrie de détail, gabions et passerelle au bord de la Platte",
+     desc:[
+      "Sainte-Catherine est un village agricole traversé par la rivière de la Platte, une ressource aujourd'hui sous-exploitée, aux berges marécageuses laissées à l'abandon et inaccessibles aux habitants. Mon analyse part de ce constat : le territoire productif et le paysage naturel évoluent en parallèle, sans jamais se croiser.",
+      "Le projet reconnecte les deux. Le long de la rivière, zones humides et haies ripisylves sont renforcées pour retenir l'eau, limiter les crues et lutter contre la sécheresse estivale : une réponse concrète à la gestion de l'eau en milieu agricole.",
+      "Sur les parcelles marécageuses, jusqu'ici impraticables, une passerelle surélevée trace un parcours à travers les zones les plus fragiles. Elle ouvre aux villageois un accès qui n'existait pas, sans perturber la végétation ni la faune qui s'y est installée. Des gabions viennent stabiliser les berges et servent, eux aussi, de refuge à cette faune.",
+      "La rivière, longtemps ignorée, devient un lieu que l'on peut enfin pratiquer : un point de rencontre entre le village et son territoire agricole."
+     ],
+     gallery:[
+      {src:"s5_qgis_influence", cap:"Carte QGIS, zone d'influence urbaine, 1/170 000", kind:"photo"},
+      {src:"s5_qgis_forets", cap:"Carte QGIS, forêts productives et économie du bois, 1/150 000", kind:"photo"},
+      {src:"s5_vegetal", cap:"Structure végétale du territoire, haies bocagères et ripisylves", kind:"photo"},
+      {src:"s5_champs", cap:"Analyse des champs exploités autour du site", kind:"photo"},
+      {src:"s5_axo_implant", cap:"Axonométrie d'implantation du projet le long de la rivière", kind:"photo"},
+      {src:"s5_plan_implant", cap:"Plan d'implantation, la passerelle suit la ripisylve", kind:"photo"},
+      {src:"s5_plan_passerelle", cap:"Plan de la passerelle à travers les zones humides", kind:"photo"},
+      {src:"s5_coupe", cap:"Coupe de la passerelle, 1/200", kind:"drawing"},
+      {src:"s5_axo_passerelle", cap:"Axonométrie de détail de la structure bois de la passerelle", kind:"drawing", narrow:true}
+     ]},
+    {code:"STA", meta:"Projet personnel, exercice de Sciences et Techniques de l'Architecture", title:"Refuge bioclimatique", sub:"Refuge de montagne, thématique « chauffer »", place:"Aragnouet, Pyrénées (65)", c:["#0078BF","#FF48B0"], a:-60, img:"r_axo", heroCap:"Axonométrie éclatée des composants du refuge",
+     desc:[
+      "Dans le cadre de cet exercice de Sciences et Techniques de l'Architecture, chaque étudiant devait traiter l'une des quatre thématiques suivantes : chauffer, refroidir, éclairer ou aérer. L'objectif : concevoir un espace répondant à cette problématique sans recours à l'électricité ni à aucun moyen technique moderne, en s'appuyant uniquement sur l'énergie naturelle et les matériaux disponibles sur site.",
+      "Ce projet, construit autour de la thématique « chauffer », prend la forme d'un refuge pour randonneurs implanté dans les Pyrénées. Le plan s'organise en deux séquences distinctes : un couloir capteur, adossé à une baie vitrée inclinée et optimisée pour maximiser les apports solaires en hiver, et un dortoir en partie arrière.",
+      "L'efficacité du couloir est renforcée par une mare de récupération d'eau, dont la surface joue le rôle de miroir et amplifie, par réflexion, la lumière et la chaleur captées. Cette chaleur est ensuite absorbée par un mur épais à plusieurs couches, chacune remplissant une fonction spécifique, qui la restitue progressivement vers le dortoir.",
+      "Le principe du mur Trombe assure enfin la ventilation naturelle de l'air : des ouvertures ménagées en partie basse et haute du mur central exploitent les écarts de pression atmosphérique pour générer un mouvement convectif, sans aucun apport mécanique."
+     ],
+     gallery:[
+      {src:"r_geo1", cap:"Coupes en hiver et en été, 1/30", kind:"drawing", half:true},
+      {src:"r_geo2", cap:"Élévation et plan, 1/30", kind:"drawing", half:true}
+     ]}
+  ],
+  analyses: [
+    {title:"Studio d'architecture", place:"Livio Vacchini", c:["#FFE800","#0078BF"], a:30, img:""},
+    {title:"Maison du Peuple", place:"Jean Nouvel", c:["#FF48B0","#FFE800"], a:-45, img:""},
+    {title:"Sprössling", place:"Marazzi Reinhardt, Winterthour", c:["#00A95C","#FF48B0"], a:15, img:""},
+    {title:"Préfecture de Saint-Étienne", place:"Étude des ornements", c:["#0078BF","#00A95C"], a:75, img:""},
+    {title:"Centre communautaire de Kasterlee", place:"Dierendonckblancke", c:["#FFE800","#00A95C"], a:-15, img:""},
+    {title:"Halle de marché", place:"Croix Marie Bourdon", c:["#FF48B0","#0078BF"], a:90, img:""}
+  ],
+  graphisme: [
+    {title:"Messe Basse", place:"Affiche, Taisson Sound System", c:["#FF48B0","#00A95C"], a:0, img:""},
+    {title:"Creatura", place:"Flyer, événement musical", c:["#FFE800","#FF48B0"], a:45, img:""},
+    {title:"Manifestive", place:"Affiche, Saint-Étienne", c:["#0078BF","#FFE800"], a:-45, img:""}
+  ]
+};
+const CAT_LABEL = {projets:"Projet personnel", analyses:"Analyse", graphisme:"Affiche et flyer"};
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasG = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
+if (hasG) gsap.registerPlugin(ScrollTrigger);
+
+const imgSrc = (k) => (window.IMG && IMG[k]) || k;
+const pattern = (it) => it.img
+  ? `url("${imgSrc(it.img)}")`
+  : `repeating-linear-gradient(${it.a}deg, ${it.c[0]} 0 14px, ${it.c[1]} 14px 22px, ${it.c[0]} 22px 30px, #000 30px 32px)`;
+
+/* ================= LENIS ================= */
+let lenis = null;
+if (!reduce && typeof Lenis !== "undefined" && hasG) {
+  try {
+    lenis = new Lenis({lerp:.09});
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } catch(e){ lenis = null; }
+}
+const goTo = (target) => {
+  const el = typeof target === "string" ? document.querySelector(target) : target;
+  if (!el) return;
+  if (lenis) lenis.scrollTo(el, {duration:1.4}); else el.scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+};
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+  const id = a.getAttribute("href"); if (id.length < 2) return;
+  e.preventDefault(); goTo(id);
+}));
+document.getElementById("toTop").addEventListener("click", () => goTo("#top"));
+
+/* ================= CURSEUR DAO ================= */
+const chx = document.querySelector(".ch-x"), chy = document.querySelector(".ch-y"), chl = document.querySelector(".ch-label");
+const pad4 = n => String(Math.max(0, Math.round(n))).padStart(4, "0");
+window.addEventListener("pointermove", e => {
+  if (e.pointerType !== "mouse") return;
+  document.body.classList.add("has-cursor");
+  chx.style.transform = `translateY(${e.clientY}px)`;
+  chy.style.transform = `translateX(${e.clientX}px)`;
+  chl.style.transform = `translate(${e.clientX + 12}px, ${e.clientY + 10}px)`;
+  chl.textContent = `x ${pad4(e.clientX)}  y ${pad4(e.clientY + window.scrollY)}`;
+}, {passive:true});
+document.addEventListener("mouseleave", () => document.body.classList.remove("has-cursor"));
+
+/* ================= INTRO : découpe en lettres ================= */
+document.querySelectorAll(".name .w").forEach(w => {
+  w.innerHTML = [...w.textContent].map(ch => `<span class="c">${ch}</span>`).join("");
+});
+
+function introAnim(){
+  if (!hasG || reduce) return;
+  const tl = gsap.timeline();
+  tl.from(".l-blue .c", {yPercent:110, rotate:8, opacity:0, duration:1, ease:"expo.out", stagger:.04})
+    .from(".l-pink .c", {yPercent:110, rotate:-8, opacity:0, duration:1, ease:"expo.out", stagger:.04}, "<.08")
+    .from(".l-yellow .c", {yPercent:110, opacity:0, duration:1, ease:"expo.out", stagger:.04}, "<.08");
+  document.querySelectorAll(".axo path").forEach(p => {
+    const L = p.getTotalLength();
+    gsap.fromTo(p, {strokeDasharray:L, strokeDashoffset:L}, {strokeDashoffset:0, duration:2.2, ease:"power2.inOut", delay:.2 + Math.random()*.6});
+  });
+  tl.from(".sticker", {scale:0, rotate:"+=40", duration:.7, ease:"back.out(2.2)", stagger:.12}, .6)
+    .from(".cotes span", {opacity:0, duration:.4, stagger:.07}, .8)
+    .from(".lede", {opacity:0, y:20, duration:.8, ease:"power3.out"}, .9);
+
+  /* décalage de repérage riso au mouvement */
+  const pX = gsap.quickTo(".l-pink", "x", {duration:.6, ease:"power3"}), pY = gsap.quickTo(".l-pink", "y", {duration:.6, ease:"power3"});
+  const yX = gsap.quickTo(".l-yellow", "x", {duration:.9, ease:"power3"}), yY = gsap.quickTo(".l-yellow", "y", {duration:.9, ease:"power3"});
+  window.addEventListener("pointermove", e => {
+    const dx = e.clientX / innerWidth - .5, dy = e.clientY / innerHeight - .5;
+    pX(dx * 26); pY(dy * 18); yX(-dx * 18); yY(-dy * 24);
+  }, {passive:true});
+
+  /* le titre se dissout en descendant */
+  gsap.to(".name", {yPercent:-18, ease:"none", scrollTrigger:{trigger:".intro", start:"top top", end:"bottom top", scrub:true}});
+  gsap.to(".sticker", {y:(i) => -120 - i*60, rotate:(i) => i%2 ? 30 : -30, ease:"none", scrollTrigger:{trigger:".intro", start:"top top", end:"bottom top", scrub:true}});
+}
+
+/* ================= LOADER ================= */
+(function loader(){
+  const L = document.getElementById("loader"), num = document.getElementById("loaderNum"), fill = document.getElementById("loaderFill");
+  if (!hasG || reduce) { L.remove(); introAnim(); return; }
+  const o = {v:0};
+  gsap.to(o, {v:100, duration:1.7, ease:"power2.inOut",
+    onUpdate(){ num.textContent = "+" + (o.v/100).toFixed(2); fill.style.height = o.v + "%"; },
+    onComplete(){
+      num.textContent = "+1.00";
+      gsap.to(L, {yPercent:-100, duration:.9, ease:"expo.inOut", onComplete:() => L.remove()});
+      gsap.delayedCall(.25, introAnim);
+    }});
+})();
+
+/* ================= ZOOM TABLE À DESSIN ================= */
+if (hasG && !reduce) {
+  gsap.fromTo("#board", {scale:.4, rotate:-7}, {scale:1, rotate:0, ease:"none",
+    scrollTrigger:{trigger:".zoom", start:"top top", end:"bottom bottom", scrub:1}});
+  gsap.fromTo("#planches-title", {yPercent:30}, {yPercent:0, ease:"none",
+    scrollTrigger:{trigger:".zoom", start:"top top", end:"bottom bottom", scrub:1}});
+}
+
+/* ================= INDEX DES TRAVAUX ================= */
+const rowsEl = document.getElementById("rows"), preview = document.getElementById("preview");
+let current = "projets";
+function renderRows(cat){
+  current = cat;
+  rowsEl.innerHTML = WORKS[cat].map((it, i) => `
+    <li><button class="row ${it.code ? "" : "no-code"}" data-i="${i}" type="button">
+      ${it.code ? `<span class="code">${it.code}</span>` : ""}
+      <span class="title">${it.title}</span>
+      <span class="place">${it.place}</span>
+    </button></li>`).join("");
+  if (hasG && !reduce) gsap.from("#rows li", {opacity:0, x:-30, duration:.5, ease:"power3.out", stagger:.05});
+}
+renderRows("projets");
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", String(x === t)));
+  renderRows(t.dataset.cat);
+  if (hasG) ScrollTrigger.refresh();
+}));
+
+/* aperçu qui suit la souris */
+let pvX, pvY;
+if (hasG) {
+  pvX = gsap.quickTo(preview, "x", {duration:.45, ease:"power3"});
+  pvY = gsap.quickTo(preview, "y", {duration:.45, ease:"power3"});
+}
+rowsEl.addEventListener("pointermove", e => {
+  if (e.pointerType !== "mouse") return;
+  if (pvX) { pvX(e.clientX + 30); pvY(e.clientY); }
+  else preview.style.left = (e.clientX + 30) + "px", preview.style.top = e.clientY + "px";
+});
+rowsEl.addEventListener("pointerover", e => {
+  const b = e.target.closest(".row"); if (!b || e.pointerType !== "mouse") return;
+  const it = WORKS[current][b.dataset.i];
+  preview.style.backgroundImage = pattern(it);
+  preview.querySelector("span").textContent = it.code || CAT_LABEL[current];
+  if (hasG) gsap.to(preview, {scale:1, rotate:(Math.random()*8-4), duration:.4, ease:"back.out(1.8)", xPercent:0, yPercent:-50});
+  else preview.style.transform = "translate(0,-50%) scale(1)";
+});
+rowsEl.addEventListener("pointerleave", () => {
+  if (hasG) gsap.to(preview, {scale:0, duration:.3, ease:"power3.in"}); else preview.style.transform = "scale(0)";
+});
+
+/* ================= TIROIR ================= */
+const drawer = document.getElementById("drawer"), veil = document.getElementById("veil");
+let lastFocus = null;
+let lbList = [], lbIdx = 0;
+function openDrawer(it){
+  lastFocus = document.activeElement;
+  document.getElementById("dMeta").textContent = it.meta || CAT_LABEL[current] + (it.code && it.code !== "Libre" ? `, semestre ${it.code.slice(1)}` : it.code === "Libre" ? ", hors semestre" : "");
+  document.getElementById("dTitle").textContent = it.title;
+  document.getElementById("dSub").textContent = it.sub || "";
+  document.getElementById("dPlace").textContent = it.place;
+  const body = document.getElementById("dBody");
+  const gal = it.gallery || [];
+  lbList = [];
+  let html = "";
+  if (it.img) {
+    lbList.push({src:imgSrc(it.img), cap:it.heroCap || (it.title + ", maquette")});
+    html += `<button class="hero-img" type="button" data-lb="0"><img src="${imgSrc(it.img)}" alt="${it.heroCap || it.title + ', photo de maquette'}"></button>`;
+  } else {
+    html += `<div class="hero-pat" style="background-image:${pattern(it)}"></div>`;
+  }
+  html += `<div class="d-text">${(it.desc || ["Les planches, maquettes et visuels de ce travail arrivent bientôt."]).map(p => `<p>${p}</p>`).join("")}</div>`;
+  if (it.model) {
+    html += `<figure class="viewer" id="viewer">
+      <div class="viewer-stage" id="vStage" style="background-image:url('${imgSrc(it.modelPoster)}')"><button type="button" class="viewer-start" id="vStart">Explorer la maquette 3D</button></div>
+      <figcaption><span>${it.modelCap}</span><span id="vErr"></span><span>Glisser pour tourner, molette ou pincement pour zoomer, clic droit pour déplacer</span></figcaption>
+      <div class="viewer-tools"><button type="button" id="vReset">Recadrer</button><button type="button" id="vFull">Plein écran</button></div>
+    </figure>`;
+  }
+  if (gal.length) {
+    html += `<div class="gallery">` + gal.map(g => {
+      const i = lbList.push({src:imgSrc(g.src), cap:g.cap}) - 1;
+      return `<figure class="${g.half ? "half" : ""} ${g.third ? "third" : ""} ${g.nocrop ? "nocrop" : ""} ${g.narrow ? "narrow" : ""} ${g.kind === "drawing" ? "drawing" : ""}"><button type="button" data-lb="${i}"><img src="${imgSrc(g.src)}" alt="${g.cap}" loading="lazy"></button><figcaption>${g.cap}</figcaption></figure>`;
+    }).join("") + `</div>`;
+  } else {
+    html += `<div class="slots"><div>Planche à venir</div><div>Maquette à venir</div><div>Rendu à venir</div></div>`;
+  }
+  stopViewer();
+  body.innerHTML = html;
+  const vStart = document.getElementById("vStart");
+  if (vStart) vStart.addEventListener("click", () => startViewer(it));
+  document.getElementById("dCount").textContent = lbList.length ? `${lbList.length} visuels` : "";
+  drawer.scrollTop = 0;
+  drawer.classList.add("on"); veil.classList.add("on"); drawer.setAttribute("aria-hidden","false");
+  if (lenis) lenis.stop();
+  document.getElementById("dClose").focus();
+  if (hasG && !reduce) gsap.from("#dBody > *, #dBody .gallery figure", {y:40, opacity:0, duration:.7, ease:"power3.out", stagger:.06, delay:.25});
+}
+/* maquette 3D */
+function parseGLB(buf){
+  return new Promise((res, rej) => {
+    const timer = setTimeout(() => rej(new Error("délai dépassé")), 30000);
+    const ok = v => { clearTimeout(timer); res(v); }, ko = e => { clearTimeout(timer); rej(e); };
+    /* force le chargement des textures par <img> plutôt que fetch() */
+    const saved = window.createImageBitmap; let patched = false;
+    try { window.createImageBitmap = undefined; patched = typeof createImageBitmap === "undefined"; } catch (e) {}
+    try { new THREE.GLTFLoader().parse(buf, "", ok, ko); } catch (e) { ko(e); }
+    finally { if (patched) window.createImageBitmap = saved; }
+  });
+}
+function stripTextures(buf){
+  const dv = new DataView(buf), jl = dv.getUint32(12, true);
+  const json = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, 20, jl)));
+  delete json.images; delete json.textures; delete json.samplers;
+  (json.materials || []).forEach(m => {
+    const p = m.pbrMetallicRoughness || {};
+    delete p.baseColorTexture; delete p.metallicRoughnessTexture;
+    delete m.normalTexture; delete m.occlusionTexture; delete m.emissiveTexture;
+  });
+  const jb = new TextEncoder().encode(JSON.stringify(json)), pad = (4 - jb.length % 4) % 4;
+  const jp = new Uint8Array(jb.length + pad); jp.set(jb); jp.fill(32, jb.length);
+  const rest = new Uint8Array(buf, 20 + jl);
+  const out = new Uint8Array(20 + jp.length + rest.length), o = new DataView(out.buffer);
+  o.setUint32(0, 0x46546C67, true); o.setUint32(4, 2, true); o.setUint32(8, out.length, true);
+  o.setUint32(12, jp.length, true); o.setUint32(16, 0x4E4F534A, true);
+  out.set(jp, 20); out.set(rest, 20 + jp.length);
+  return out.buffer;
+}
+let viewer = null;
+function stopViewer(){ if (viewer) { viewer.stop(); viewer = null; } }
+async function startViewer(it){
+  const stage = document.getElementById("vStage"), btn = document.getElementById("vStart"), fig = document.getElementById("viewer");
+  if (typeof THREE === "undefined" || !THREE.GLTFLoader || !THREE.OrbitControls || !("DecompressionStream" in window)) {
+    btn.textContent = "La maquette 3D ne peut pas s'afficher dans ce navigateur"; btn.disabled = true; return;
+  }
+  btn.disabled = true; btn.textContent = "Chargement de la maquette…";
+  await new Promise(r => setTimeout(r, 30));
+  let gltf, noTex = false;
+  const errEl = document.getElementById("vErr");
+  try {
+    const res = await fetch("models/" + it.model + ".glb.gz");
+    if (!res.ok) throw new Error("fichier introuvable (" + res.status + ")");
+    const raw = new Uint8Array(await res.arrayBuffer());
+    const buf = (raw[0] === 0x1f && raw[1] === 0x8b)
+      ? await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()
+      : raw.buffer;
+    try { gltf = await parseGLB(buf.slice(0)); }
+    catch (e1) { console.warn("Textures ignorées :", e1); noTex = true; gltf = await parseGLB(stripTextures(buf)); }
+  } catch (e) {
+    console.error(e); btn.disabled = false; btn.textContent = "Chargement impossible, réessayer";
+    if (errEl) errEl.textContent = "Détail technique : " + ((e && e.message) || e);
+    return;
+  }
+  if (!document.body.contains(stage)) return;
+  const canvas = document.createElement("canvas"); stage.appendChild(canvas);
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0xEFEDE6);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xb9b3a5, .95));
+  const sun = new THREE.DirectionalLight(0xffffff, .85); sun.position.set(60, 90, 40); scene.add(sun);
+  const model = gltf.scene; scene.add(model);
+  const box = new THREE.Box3().setFromObject(model), size = box.getSize(new THREE.Vector3()), center = box.getCenter(new THREE.Vector3());
+  const R = size.length();
+  const cam = new THREE.PerspectiveCamera(38, 1, R / 2000, R * 20);
+  const controls = new THREE.OrbitControls(cam, canvas);
+  controls.enableDamping = true; controls.dampingFactor = .08; controls.maxPolarAngle = Math.PI * .495;
+  controls.minDistance = R * .03; controls.maxDistance = R * 3;
+  const reset = () => { cam.position.set(center.x + R * .55, center.y + R * .42, center.z + R * .55); controls.target.copy(center); controls.update(); };
+  reset();
+  const fit = () => { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
+  const ro = new ResizeObserver(fit); ro.observe(stage); fit();
+  let alive = true;
+  (function loop(){ if (!alive) return; controls.update(); renderer.render(scene, cam); requestAnimationFrame(loop); })();
+  fig.classList.add("live");
+  document.getElementById("vReset").onclick = reset;
+  const fb = document.getElementById("vFull");
+  if (!document.fullscreenEnabled) fb.hidden = true;
+  fb.onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else stage.requestFullscreen().catch(() => {}); };
+  viewer = { stop(){
+    alive = false; ro.disconnect(); controls.dispose();
+    scene.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) [].concat(o.material).forEach(m => { Object.values(m).forEach(v => v && v.isTexture && v.dispose()); m.dispose(); }); });
+    renderer.dispose(); renderer.forceContextLoss && renderer.forceContextLoss();
+  }};
+}
+/* visionneuse */
+const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lbImg");
+function showLb(i){
+  lbIdx = (i + lbList.length) % lbList.length;
+  const it = lbList[lbIdx];
+  lbImg.src = it.src; lbImg.alt = it.cap;
+  document.getElementById("lbCap").textContent = it.cap;
+  document.getElementById("lbCount").textContent = `${lbIdx + 1} / ${lbList.length}`;
+}
+function openLb(i){ showLb(i); lb.classList.add("on"); document.getElementById("lbClose").focus(); }
+function closeLb(){ lb.classList.remove("on"); }
+document.getElementById("dBody").addEventListener("click", e => {
+  const b = e.target.closest("[data-lb]"); if (b) openLb(+b.dataset.lb);
+});
+document.getElementById("lbClose").addEventListener("click", closeLb);
+document.getElementById("lbPrev").addEventListener("click", () => showLb(lbIdx - 1));
+document.getElementById("lbNext").addEventListener("click", () => showLb(lbIdx + 1));
+lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-stage")) closeLb(); });
+function closeDrawer(){
+  stopViewer();
+  drawer.classList.remove("on"); veil.classList.remove("on"); drawer.setAttribute("aria-hidden","true");
+  if (lenis) lenis.start();
+  if (lastFocus) lastFocus.focus();
+}
+rowsEl.addEventListener("click", e => {
+  const b = e.target.closest(".row"); if (b) openDrawer(WORKS[current][b.dataset.i]);
+});
+document.getElementById("dClose").addEventListener("click", closeDrawer);
+veil.addEventListener("click", closeDrawer);
+
+/* ================= PARCOURS HORIZONTAL ================= */
+if (hasG) {
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 861px) and (prefers-reduced-motion: no-preference)", () => {
+    const track = document.getElementById("track");
+    const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+    const tw = gsap.to(track, {x:() => -dist(), ease:"none",
+      scrollTrigger:{trigger:".parcours", pin:".parcours-pin", scrub:1, start:"top top", end:() => "+=" + dist(), invalidateOnRefresh:true}});
+    gsap.utils.toArray(".card").forEach((c, i) => {
+      gsap.from(c, {rotate: i % 2 ? 6 : -6, y:60, ease:"none",
+        scrollTrigger:{trigger:c, containerAnimation:tw, start:"left right", end:"left 55%", scrub:true}});
+    });
+  });
+  if (!reduce) {
+    gsap.utils.toArray(".stamp").forEach(s => {
+      gsap.from(s, {scale:2.4, opacity:0, rotate:-30, duration:.45, ease:"power4.in",
+        scrollTrigger:{trigger:s, start:"top 85%"}});
+    });
+  }
+}
+
+/* ================= BRIQUE 3D ================= */
+(function brick(){
+  const canvas = document.getElementById("brick");
+  if (typeof THREE === "undefined" || !canvas) return;
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true}); } catch(e){ return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(35, 1, .1, 100);
+  cam.position.set(0, 0, 7);
+
+  /* texture terre cuite bruitée */
+  const tc = document.createElement("canvas"); tc.width = tc.height = 256;
+  const g = tc.getContext("2d");
+  g.fillStyle = "#b24a2b"; g.fillRect(0,0,256,256);
+  for (let i = 0; i < 9000; i++) {
+    const v = Math.random();
+    g.fillStyle = v > .5 ? `rgba(255,190,150,${Math.random()*.18})` : `rgba(60,15,5,${Math.random()*.25})`;
+    g.fillRect(Math.random()*256, Math.random()*256, 1 + Math.random()*2, 1 + Math.random()*2);
+  }
+  const tex = new THREE.CanvasTexture(tc);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+
+  /* brique perforée : 22 × 10,5 × 6,5 */
+  const w = 2.2, h = 1.05;
+  const shape = new THREE.Shape();
+  shape.moveTo(-w/2, -h/2); shape.lineTo(w/2, -h/2); shape.lineTo(w/2, h/2); shape.lineTo(-w/2, h/2); shape.lineTo(-w/2, -h/2);
+  [-.62, 0, .62].forEach(x => { const p = new THREE.Path(); p.absarc(x, 0, .17, 0, Math.PI*2, true); shape.holes.push(p); });
+  const geo = new THREE.ExtrudeGeometry(shape, {depth:.65, bevelEnabled:true, bevelSize:.025, bevelThickness:.025, bevelSegments:2, curveSegments:24});
+  geo.center();
+  const mat = new THREE.MeshStandardMaterial({map:tex, roughness:.95, metalness:0});
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.rotation.set(-.9, .5, 0);
+  const pivot = new THREE.Group(); pivot.add(mesh); scene.add(pivot);
+
+  scene.add(new THREE.AmbientLight(0xffffff, .55));
+  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(3, 4, 5); scene.add(key);
+  const rimB = new THREE.DirectionalLight(0x0078bf, 1.4); rimB.position.set(-5, -2, -2); scene.add(rimB);
+  const rimY = new THREE.DirectionalLight(0xffe800, .9); rimY.position.set(5, -3, 1); scene.add(rimY);
+
+  function size(){
+    const r = canvas.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    cam.aspect = r.width / r.height; cam.updateProjectionMatrix();
+    pivot.position.x = r.width > 860 ? 1.6 : 0;
+    pivot.position.y = r.width > 860 ? -.2 : -1.2;
+  }
+  size(); addEventListener("resize", size);
+
+  let drag = false, lx = 0, ly = 0, vx = .004, vy = .008;
+  canvas.addEventListener("pointerdown", e => { drag = true; lx = e.clientX; ly = e.clientY; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", e => {
+    if (!drag) return;
+    vy = (e.clientX - lx) * .004; vx = (e.clientY - ly) * .004; lx = e.clientX; ly = e.clientY;
+  });
+  const end = () => drag = false;
+  canvas.addEventListener("pointerup", end); canvas.addEventListener("pointercancel", end);
+
+  let visible = false, raf = null;
+  function loop(){
+    if (!visible) { raf = null; return; }
+    pivot.rotation.x += vx; pivot.rotation.y += vy;
+    if (!drag) { vx += (.002 - vx) * .03; vy += ((reduce ? 0 : .006) - vy) * .03; }
+    renderer.render(scene, cam);
+    raf = requestAnimationFrame(loop);
+  }
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible && !raf) loop(); }).observe(canvas);
+  renderer.render(scene, cam);
+})();
+
+/* ================= CHANTIER SECRET ================= */
+const CODE = "105191925"; /* J=10 E=5 S=19 S=19 Y=25 */
+const secret = document.getElementById("secret");
+let buf = "";
+function openSecret(){
+  secret.classList.add("on"); if (lenis) lenis.stop();
+  document.getElementById("sClose").focus();
+  if (!hasG || reduce) return;
+  const cols = ["#FF48B0","#0078BF","#FFE800","#B24A2B","#EFEDE6"];
+  for (let i = 0; i < 46; i++) {
+    const b = document.createElement("div"); b.className = "fall";
+    b.style.left = Math.random()*100 + "vw"; b.style.background = cols[i % cols.length];
+    secret.appendChild(b);
+    gsap.to(b, {y: innerHeight + 160, rotate: Math.random()*360 - 180, duration: 1.4 + Math.random()*1.6, delay: Math.random()*1.2, ease:"power2.in", onComplete:() => b.remove()});
+  }
+  gsap.from("#sTitle", {scale:.3, rotate:-12, duration:.8, ease:"back.out(2)"});
+}
+function closeSecret(){ secret.classList.remove("on"); if (lenis) lenis.start(); }
+document.getElementById("sClose").addEventListener("click", closeSecret);
+addEventListener("keydown", e => {
+  if (lb.classList.contains("on")) {
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowRight") showLb(lbIdx + 1);
+    if (e.key === "ArrowLeft") showLb(lbIdx - 1);
+    return;
+  }
+  if (e.key === "Escape") { if (drawer.classList.contains("on")) closeDrawer(); if (secret.classList.contains("on")) closeSecret(); return; }
+  if (/^[0-9]$/.test(e.key)) {
+    buf = (buf + e.key).slice(-CODE.length);
+    if (buf === CODE) { buf = ""; openSecret(); }
+  }
+});
+console.log("%cChantier interdit au public.", "background:#FFE800;color:#000;font-size:16px;padding:4px 8px;font-weight:bold");
+console.log("Indice : les lettres ont des numéros. J commence à 10.");
+
+addEventListener("load", () => { if (hasG) ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
